@@ -42,6 +42,7 @@ class UserController extends Controller
         ]);
 
         $credentials['password'] = Hash::make($credentials['password']);
+        $credentials['role'] = 'user';
         $credentials['created_at'] = date('Y-m-d H:i:s');
         $credentials['updated_at'] = date('Y-m-d H:i:s');
 

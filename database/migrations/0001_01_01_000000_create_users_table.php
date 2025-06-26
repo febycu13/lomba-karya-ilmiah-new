@@ -19,7 +19,7 @@ return new class extends Migration {
             $table->string('schools');
             $table->string('name_schools');
             $table->text('address_schools');
-            $table->text('role');
+            $table->string('role');
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();

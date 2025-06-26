@@ -16,15 +16,21 @@
                         <strong>Selamat!</strong> {{ session('success') }}
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
+                @elseif(session('failed'))
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <strong>Gagal!</strong> {{ session('failed') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
                 @endif
-                <form class="user">
+                <form class="user" action="{{ config('app.url') . '/login' }}" method="post">
+                    @csrf
                     <div class="form-group">
                         <input type="email" class="form-control form-control-user" id="exampleInputEmail"
-                            aria-describedby="emailHelp" placeholder="Enter Email Address...">
+                            aria-describedby="emailHelp" placeholder="Enter Email Address..." name="email" autofocus>
                     </div>
                     <div class="form-group">
                         <input type="password" class="form-control form-control-user" id="exampleInputPassword"
-                            placeholder="Password">
+                            placeholder="Password" name="password">
                     </div>
                     <div class="form-group">
                         <div class="custom-control custom-checkbox small">
@@ -32,9 +38,7 @@
                             <label class="custom-control-label" for="customCheck">Ingat saya</label>
                         </div>
                     </div>
-                    <a href="index.html" class="btn btn-primary btn-user btn-block">
-                        Masuk
-                    </a>
+                    <button type="submit" name="submit" class="btn btn-primary btn-user btn-block">Masuk</button>
                     <hr>
                     <a href="{{config('app.url') . '/register'}}" class="btn btn-dark btn-user btn-block">
                         Pendaftaran Akun!
