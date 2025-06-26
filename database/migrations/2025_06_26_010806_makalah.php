@@ -12,7 +12,20 @@ return new class extends Migration {
     {
         Schema::create('makalah', function (Blueprint $table) {
             $table->id();
-            $table->string('id_makalah');
+            $table->integer('id_makalah');
+            $table->string('title');
+            $table->string('sub_theme');
+            $table->string('school');
+            $table->string('code_school');
+            $table->string('address_school');
+            $table->string('province');
+            $table->string('men');
+            $table->string('womwen');
+            $table->string('name_participant');
+            $table->string('name_teacher');
+            $table->string('telephone');
+            $table->string('email');
+            $table->string('file_makalah');
             $table->timestamps();
         });
     }
@@ -22,6 +35,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('makalah');
     }
 };
