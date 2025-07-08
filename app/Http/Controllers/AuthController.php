@@ -5,48 +5,56 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Session;
 
 class AuthController extends Controller
 {
-    public function index(){
-      return view('login');
-    }
+  public function index()
+  {
+    return view('login');
+  }
 
-    public function auth(Request $request){
+  public function auth(Request $request)
+  {
 
-        // dd($request->all());
+    // dd($request->all());
 
-      $credentials = $request->validate([
-        'email' => ['required', 'email:dns'],
-        'password' => ['required']
-      ]);
+    $credentials = $request->validate([
+      'email' => ['required', 'email:dns'],
+      'password' => ['required']
+    ]);
 
-      if(Auth::attempt($credentials)){
+    if (Auth::attempt($credentials)) {
 
-        $request->session()->regenerate();
+      $request->session()->regenerate();
 
-        return redirect()->intended(config('app.url').'/dashboard');
-
-      }
-
-      return back()->with('failed', 'Email atau Password Salah!!');
+      return redirect()->intended(config('app.url') . '/dashboard');
 
     }
 
-    public function logout(Request $request){
-      Auth::logout();
+    return back()->with('failed', 'Email atau Password Salah!!');
 
-      $request->session()->invalidate();
+  }
 
-      $request->session()->regenerateToken();
+  public function logout(Request $request)
+  {
+    Auth::logout();
 
-      return redirect(config('app.url').'/login')->with('success', 'Anda Berhasil Keluar!');
-    }
+    $request->session()->invalidate();
 
-    public function dashboard(){
-      $user = Auth::user();
-      $data = DB::table('users')->where('id', $user->id)->first();
+    $request->session()->regenerateToken();
 
-      return view('dashboard.index', ['data' => $data]);
-    }
+    return redirect(config('app.url') . '/login')->with('success', 'Anda Berhasil Keluar!');
+  }
+
+  public function dashboard()
+  {
+    $user = Auth::user();
+    $data = DB::table('users')->where('id', $user->id)->first();
+
+    Session::flash('name', $data->name);
+    Session::flash('id', $data->id);
+
+    return view('dashboard.index');
+  }
 }

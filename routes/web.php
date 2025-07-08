@@ -26,3 +26,7 @@ Route::get('/login', [AuthController::class, 'index'])->name('login');
 Route::get('/dashboard', [AuthController::class, 'dashboard'])->middleware('auth')->name('dashboard');
 Route::post('login', [AuthController::class, 'auth']);
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
+Route::get('/change-password', [UserController::class, 'IndexChangePassword'])->name('change-password');
+Route::post('/change-password', [UserController::class, 'StoreChangePassword']);
+Route::get('/makalah', [UserController::class, 'IndexMakalah'])->name('makalah');
+

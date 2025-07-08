@@ -7,6 +7,9 @@ use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use Session;
 
 date_default_timezone_set('Asia/Jakarta');
 
@@ -58,5 +61,54 @@ class UserController extends Controller
         ]);
 
         return redirect()->route('login')->with(['success' => 'Aktivasi Akun Berhasil!']);
+    }
+
+    public function IndexChangePassword()
+    {
+        $user = Auth::user();
+        $data = DB::table('users')->where('id', $user->id)->first();
+
+        Session::flash('name', $data->name);
+        Session::flash('id', $data->id);
+        return view('dashboard.change-password');
+    }
+
+    public function StoreChangePassword(Request $request)
+    {
+        $data = DB::table('users')->where('id', $request->id)->first();
+        $request->validate(
+            [
+                'password_old' => 'required',
+                'password' => [
+                    'required',
+                    'confirmed',
+                    'different:password_old',
+                    Password::min(8)
+                        ->mixedCase()
+                        ->symbols()
+                ]
+            ],
+            [
+                'password.different' => 'Password Baru harus Berbeda dengan Password Lama'
+            ]
+        );
+        if (Hash::check($request->password_old, $data->password)) {
+            User::where('id', '=', $request->id)->update([
+                'password' => Hash::make($request->password)
+            ]);
+            return redirect()->route('change-password')->with(['success' => 'Ganti Password Berhasil']);
+        } else {
+            return redirect()->route('change-password')->with(['failed' => 'Ganti Password Belum Berhasil']);
+        }
+    }
+
+    public function IndexMakalah()
+    {
+        $user = Auth::user();
+        $data = DB::table('users')->where('id', $user->id)->first();
+
+        Session::flash('name', $data->name);
+        Session::flash('id', $data->id);
+        return view('dashboard.makalah');
     }
 }
