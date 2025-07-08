@@ -101,14 +101,4 @@ class UserController extends Controller
             return redirect()->route('change-password')->with(['failed' => 'Ganti Password Belum Berhasil']);
         }
     }
-
-    public function IndexMakalah()
-    {
-        $user = Auth::user();
-        $data = DB::table('users')->where('id', $user->id)->first();
-
-        Session::flash('name', $data->name);
-        Session::flash('id', $data->id);
-        return view('dashboard.makalah');
-    }
 }

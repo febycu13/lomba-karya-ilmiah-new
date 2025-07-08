@@ -4,10 +4,12 @@
     @if(session('success'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">
             <strong>Selamat!</strong> {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @elseif(session('failed'))
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
             <strong>Maaf!</strong> {{ session('failed') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @endif
     <!-- Project Card Example -->

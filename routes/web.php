@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\MakalahController;
 
 Route::get('/', function () {
     return view('index');
@@ -28,5 +29,8 @@ Route::post('login', [AuthController::class, 'auth']);
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
 Route::get('/change-password', [UserController::class, 'IndexChangePassword'])->name('change-password');
 Route::post('/change-password', [UserController::class, 'StoreChangePassword']);
-Route::get('/makalah', [UserController::class, 'IndexMakalah'])->name('makalah');
+
+//Makalah
+Route::get('/makalah', [MakalahController::class, 'index'])->name('makalah');
+Route::delete('/makalah/{makalah}', [MakalahController::class, 'delete']);
 
