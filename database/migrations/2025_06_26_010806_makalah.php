@@ -20,7 +20,7 @@ return new class extends Migration {
             $table->string('address_school');
             $table->string('province');
             $table->string('men');
-            $table->string('womwen');
+            $table->string('women');
             $table->string('name_participant');
             $table->string('name_teacher');
             $table->string('telephone');

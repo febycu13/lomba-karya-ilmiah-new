@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-use Session;
 
 date_default_timezone_set('Asia/Jakarta');
 
@@ -66,11 +65,10 @@ class UserController extends Controller
     public function IndexChangePassword()
     {
         $user = Auth::user();
-        $data = DB::table('users')->where('id', $user->id)->first();
 
-        Session::flash('name', $data->name);
-        Session::flash('id', $data->id);
-        return view('dashboard.change-password');
+        return view('dashboard.change-password', [
+            'data_user' => $user
+        ]);
     }
 
     public function StoreChangePassword(Request $request)

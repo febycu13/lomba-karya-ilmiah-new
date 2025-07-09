@@ -22,7 +22,7 @@
                 <form action="{{ config('app.url') . '/change-password'}}" method="post" class="user"
                     enctype="multipart/form-data">
                     @csrf
-                    <input type="hidden" name="id" value="{{ session('id') }}">
+                    <input type="hidden" name="id" value="{{ $data_user->id }}">
                     <div class="form-group row">
                         <div class="col-sm-12 mb-3 mb-sm-0">
                             <input type="password"

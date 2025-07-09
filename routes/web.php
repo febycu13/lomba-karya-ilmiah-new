@@ -32,5 +32,7 @@ Route::post('/change-password', [UserController::class, 'StoreChangePassword']);
 
 //Makalah
 Route::get('/makalah', [MakalahController::class, 'index'])->name('makalah');
+Route::get('/pend-makalah', [MakalahController::class, 'indexPendaftaran'])->name('pend-makalah');
+Route::post('/pend-makalah', [MakalahController::class, 'store']);
 Route::delete('/makalah/{makalah}', [MakalahController::class, 'delete']);
 

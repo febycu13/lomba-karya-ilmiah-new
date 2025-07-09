@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-use Session;
 
 class AuthController extends Controller
 {
@@ -50,11 +49,15 @@ class AuthController extends Controller
   public function dashboard()
   {
     $user = Auth::user();
-    $data = DB::table('users')->where('id', $user->id)->first();
+    $dataSubtheme = DB::table('makalah')
+      ->select('sub_theme', DB::raw('count(id) as total'))
+      ->groupby('sub_theme')
+      ->get();
 
-    Session::flash('name', $data->name);
-    Session::flash('id', $data->id);
-
-    return view('dashboard.index');
+    return view('dashboard.index', [
+      'data_user' => $user,
+      'data_subtheme' => $dataSubtheme,
+      'json_subtheme' => json_encode($dataSubtheme)
+    ]);
   }
 }

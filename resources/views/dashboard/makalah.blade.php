@@ -18,7 +18,9 @@
                             <th>Tema Makalah</th>
                             <th>Judul Makalah</th>
                             <th>Nama Sekolah</th>
-                            <th style="width:8%">Aksi</th>
+                            @if($data_user->role == 'admin')
+                                <th style="width:8%">Aksi</th>
+                            @endif
                         </tr>
                     </thead>
                     <tbody>
@@ -28,16 +30,19 @@
                                 <td>{{$makalah->sub_theme}}</td>
                                 <td>{{$makalah->title}}</td>
                                 <td>{{$makalah->school}}</td>
-                                <td>
-                                    <a href="#" class="btn btn-primary btn-circle btn-sm">
-                                        <i class="fas fa-edit"></i>
-                                    </a>
-                                    <button class="btn btn-danger btn-circle btn-sm" data-toggle="modal"
-                                        data-target="#deleteModal{{ $makalah->id }}"><i class="fas fa-trash"></i></button>
-                                    <a href="#" class="btn btn-info btn-circle btn-sm">
-                                        <i class="fas fa-download"></i>
-                                    </a>
-                                </td>
+                                @if($data_user->role == 'admin')
+                                    <td>
+                                        <a href="#" class="btn btn-primary btn-circle btn-sm">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <button class="btn btn-danger btn-circle btn-sm" data-toggle="modal"
+                                            data-target="#deleteModal{{ $makalah->id }}"><i class="fas fa-trash"></i></button>
+                                        <a href="{{config('app.url') . '/storage/makalah/' . $makalah->file_makalah}}"
+                                            class=" btn btn-info btn-circle btn-sm" target="_blank">
+                                            <i class="fas fa-download"></i>
+                                        </a>
+                                    </td>
+                                @endif
                             </tr>
                             <!-- Delete Modal-->
                             <div class="modal fade" id="deleteModal{{ $makalah->id }}" tabindex="-1" role="dialog"

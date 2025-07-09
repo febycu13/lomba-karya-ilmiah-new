@@ -26,6 +26,7 @@
     <!-- Custom styles for this template-->
     <link href="storage/assets_admin/css/sb-admin-2.css" rel="stylesheet">
     <link href="storage/assets_admin/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <link href="storage/assets_admin/vendor/select2/select2.min.css" rel="stylesheet" />
 
 </head>
 
@@ -70,32 +71,41 @@
                     <span>Daftar Pemakalah</span>
                 </a>
             </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Pengaturan
-            </div>
-
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <i class="fas fa-fw fa-cog"></i>
-                    <span>Halaman Depan</span>
+            <li class="nav-item {{request()->path() == 'pend-makalah' ? 'active' : ''}}">
+                <a class="nav-link collapsed" href="{{ config('app.url') . '/pend-makalah' }}"
+                    aria-controls="collapseTwo">
+                    <i class="fas fa-fw fa-plus"></i>
+                    <span>Pendaftaran Makalah</span>
                 </a>
-                <!-- <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="#">Poster</a>
-                        <a class="collapse-item" href="#">S&K</a>
-                        <a class="collapse-item" href="#">Panduan Penulisan</a>
-                        <a class="collapse-item" href="#">Pendaftaran</a>
-                        <a class="collapse-item" href="#">Daftar Makalah</a>
-                        <a class="collapse-item" href="#">Kontak</a>
-                    </div>
-                </div> -->
             </li>
+
+            @if($data_user->role == 'admin')
+                <!-- Divider -->
+                <hr class="sidebar-divider">
+
+                <!-- Heading -->
+                <div class="sidebar-heading">
+                    Pengaturan
+                </div>
+
+                <!-- Nav Item - Pages Collapse Menu -->
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <i class="fas fa-fw fa-cog"></i>
+                        <span>Halaman Depan</span>
+                    </a>
+                    <!-- <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                                                                        <div class="bg-white py-2 collapse-inner rounded">
+                                                                            <a class="collapse-item" href="#">Poster</a>
+                                                                            <a class="collapse-item" href="#">S&K</a>
+                                                                            <a class="collapse-item" href="#">Panduan Penulisan</a>
+                                                                            <a class="collapse-item" href="#">Pendaftaran</a>
+                                                                            <a class="collapse-item" href="#">Daftar Makalah</a>
+                                                                            <a class="collapse-item" href="#">Kontak</a>
+                                                                        </div>
+                                                                    </div> -->
+                </li>
+            @endif
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
@@ -169,8 +179,7 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span
-                                    class="mr-2 d-none d-lg-inline text-gray-600 small">{{ Session::get('name') }}</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ $data_user->name }}</span>
                                 <img class="img-profile rounded-circle"
                                     src="storage/assets_admin/img/undraw_profile.svg">
                             </a>
@@ -269,9 +278,11 @@
     <!-- Page level plugins -->
     <script src="storage/assets_admin/vendor/datatables/jquery.dataTables.min.js"></script>
     <script src="storage/assets_admin/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+    <script src="storage/assets_admin/vendor/select2/select2.min.js"></script>
 
     <!-- Page level custom scripts -->
     <script src="storage/assets_admin/js/demo/datatables-demo.js"></script>
+    <script src="storage/assets_admin/js/demo/select2.js"></script>
 
 </body>
 
